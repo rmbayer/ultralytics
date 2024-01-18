@@ -224,7 +224,7 @@ class BaseTrainer:
         dist.init_process_group(
             "nccl" if dist.is_nccl_available() else "gloo",
             timeout=timedelta(seconds=10800),  # 3 hours
-            rank=RANK,
+            rank=LOCAL_RANK,
             world_size=world_size,
         )
 
@@ -319,6 +319,8 @@ class BaseTrainer:
         """Train completed, evaluate and plot if specified by arguments."""
         if world_size > 1:
             self._setup_ddp(world_size)
+        torch.cuda.set_device(LOCAL_RANK)
+        self.device = torch.device('cuda', LOCAL_RANK)
         self._setup_train(world_size)
 
         nb = len(self.train_loader)  # number of batches
