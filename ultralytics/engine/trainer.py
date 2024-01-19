@@ -218,9 +218,9 @@ class BaseTrainer:
 
     def _setup_ddp(self, world_size):
         """Initializes and sets the DistributedDataParallel parameters for training."""
-        torch.cuda.set_device(RANK)
-        self.device = torch.device("cuda", RANK)
-        # LOGGER.info(f'DDP info: RANK {RANK}, WORLD_SIZE {world_size}, DEVICE {self.device}')
+        torch.cuda.set_device(LOCAL_RANK)
+        self.device = torch.device("cuda", LOCAL_RANK)
+        # LOGGER.info(f'DDP info: RANK {RANK},LOCAL_RANK, {LOCAL_RANK}, WORLD_SIZE {world_size}, DEVICE {self.device}')
         os.environ["NCCL_BLOCKING_WAIT"] = "1"  # set to enforce timeout
         dist.init_process_group(
             "nccl" if dist.is_nccl_available() else "gloo",
