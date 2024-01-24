@@ -226,7 +226,7 @@ class BaseTrainer:
         dist.init_process_group(
             "nccl" if dist.is_nccl_available() else "gloo",
             timeout=timedelta(seconds=10800),  # 3 hours
-            rank=LOCAL_RANK,
+            rank=RANK,
             world_size=world_size,
         )
 
