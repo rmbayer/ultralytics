@@ -178,7 +178,7 @@ class BaseTrainer:
         elif isinstance(self.args.device, (tuple, list)):  # i.e. device=[0, 1, 2, 3] (multi-GPU from CLI is list)
             world_size = len(self.args.device)
         elif torch.cuda.is_available():  # i.e. device=None or device='' or device=number
-            world_size = 1  # default to device 0
+            world_size = int(os.getenv('WORLD_SIZE', 1))  # default to device 0
         else:  # i.e. device='cpu' or 'mps'
             world_size = 0
 
