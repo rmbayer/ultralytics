@@ -27,7 +27,7 @@ from ultralytics.utils import (
     DEFAULT_CFG,
     LOGGER,
     RANK,
-    LOCAL_,
+    LOCAL_RANK,
     TQDM,
     __version__,
     callbacks,
