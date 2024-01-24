@@ -27,7 +27,7 @@ from ultralytics.utils import (
     DEFAULT_CFG,
     LOGGER,
     RANK,
-    LOCAL_RANK,
+    LOCAL_,
     TQDM,
     __version__,
     callbacks,
@@ -226,9 +226,9 @@ class BaseTrainer:
         os.environ["NCCL_BLOCKING_WAIT"] = "1"  # set to enforce timeout
         dist.init_process_group(
             "nccl" if dist.is_nccl_available() else "gloo",
-            timeout=timedelta(seconds=10800),  # 3 hours
-            rank=RANK,
-            world_size=world_size,
+            # timeout=timedelta(seconds=10800),  # 3 hours
+            # rank=LOCAL_RANK,
+            # world_size=world_size,
         )
 
     def _setup_train(self, world_size):
