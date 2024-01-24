@@ -218,7 +218,8 @@ class BaseTrainer:
 
     def _setup_ddp(self, world_size):
         """Initializes and sets the DistributedDataParallel parameters for training."""
-        print(f"LOCAL_RANK {LOCAL_RANK}")
+        print(f'DDP info: RANK {RANK}, LOCAL_RANK, {LOCAL_RANK}, WORLD_SIZE {world_size}, DEVICE {self.device}')
+        print(f'nccl available {dist.is_nccl_available()}')
         torch.cuda.set_device(LOCAL_RANK)
         self.device = torch.device("cuda", LOCAL_RANK)
         # LOGGER.info(f'DDP info: RANK {RANK},LOCAL_RANK, {LOCAL_RANK}, WORLD_SIZE {world_size}, DEVICE {self.device}')
